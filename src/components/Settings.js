@@ -1,16 +1,17 @@
-import React from "react"
-import { useContext } from "react"
-import { UserContext } from "../context/userContext"
+import React, { createContext, useState } from "react";
 
-export const Settings = () => {
+const UserContext = createContext();
 
-    // to be implemented in context
-    const { changeGreeting } = useContext(UserContext)
-
-    return (
-        <div style={{ border: '5px solid red', padding: '8px' }} id="settings">
-            <h4>Settings</h4>
-            <input type={'text'} />
-        </div>
-    )
+const Wrapper = (props) => {
+  const greeting = "Hello";
+  const [data, setData] = useState(greeting)
+const changeGreeting = (event) =>{
+     setData(event.target.value)
 }
+  return (
+    <UserContext.Provider value={{ greeting, changeGreeting, data }}>
+      {props.children}
+    </UserContext.Provider>
+  );
+};
+export { Wrapper, UserContext };
