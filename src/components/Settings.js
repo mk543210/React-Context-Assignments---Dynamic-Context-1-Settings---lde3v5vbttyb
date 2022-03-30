@@ -1,17 +1,20 @@
-import React, { createContext, useState } from "react";
+import React from "react";
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
 
-const UserContext = createContext();
+export const Settings = () => {
+  // to be implemented in context
+  const { changeGreeting } = useContext(UserContext);
 
-const Wrapper = (props) => {
-  const greeting = "Hello";
-  const [data, setData] = useState(greeting)
-const changeGreeting = (event) =>{
-     setData(event.target.value)
-}
   return (
-    <UserContext.Provider value={{ greeting, changeGreeting, data }}>
-      {props.children}
-    </UserContext.Provider>
+    <div style={{ border: "5px solid red", padding: "8px" }} id="settings">
+      <h4>Settings</h4>
+      <input
+        type={"text"}
+        onChange={(e) => {
+          changeGreeting(e.target.value);
+        }}
+      />
+    </div>
   );
 };
-export { Wrapper, UserContext };
